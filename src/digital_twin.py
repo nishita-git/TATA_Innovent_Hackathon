@@ -63,20 +63,20 @@ class EngineDigitalTwin:
             self.health_score = round(min(100, (self.current_rul / 125) * 100), 2)
 
     def _check_alerts(self):
-     if self.current_rul is None:
-        return
-     if self.current_rul <= 15:
-        self._add_alert("CRITICAL", 
-            f"Engine {self.engine_id} RUL critically low: "
-            f"{self.current_rul} cycles. Immediate maintenance required.")
-     elif self.current_rul <= 35:
-        self._add_alert("WARNING",  
-            f"Engine {self.engine_id} RUL low: "
-            f"{self.current_rul} cycles. Schedule maintenance soon.")
-     elif self.current_rul <= 60:
-        self._add_alert("CAUTION",  
-            f"Engine {self.engine_id} RUL: "
-            f"{self.current_rul} cycles. Monitor closely.")
+        if self.current_rul is None:
+            return
+        if self.current_rul <= 15:
+            self._add_alert("CRITICAL", 
+                f"Engine {self.engine_id} RUL critically low: "
+                f"{self.current_rul} cycles. Immediate maintenance required.")
+        elif self.current_rul <= 35:
+            self._add_alert("WARNING",  
+                f"Engine {self.engine_id} RUL low: "
+                f"{self.current_rul} cycles. Schedule maintenance soon.")
+        elif self.current_rul <= 60:
+            self._add_alert("CAUTION",  
+                f"Engine {self.engine_id} RUL: "
+                f"{self.current_rul} cycles. Monitor closely.")
 
     def _add_alert(self, level, message):
         alert = {
@@ -100,16 +100,16 @@ class EngineDigitalTwin:
         }
 
     def _get_status(self):
-     if self.current_rul is None:
-        return "INITIALIZING"
-     elif self.current_rul <= 15:
-        return "CRITICAL"
-     elif self.current_rul <= 35:
-        return "WARNING"
-     elif self.current_rul <= 60:
-        return "CAUTION"
-     else:
-        return "HEALTHY"
+        if self.current_rul is None:
+            return "INITIALIZING"
+        elif self.current_rul <= 15:
+            return "CRITICAL"
+        elif self.current_rul <= 35:
+            return "WARNING"
+        elif self.current_rul <= 60:
+            return "CAUTION"
+        else:
+            return "HEALTHY"
 
 
 class FleetDigitalTwin:
@@ -129,7 +129,8 @@ class FleetDigitalTwin:
         self.model = LSTMModel(
             input_size=config['input_size'],
             hidden_size=config['hidden_size'],
-            num_layers=config['num_layers']
+            num_layers=config['num_layers'],
+            dropout=config.get('dropout', 0.3)
         )
         self.model.load_state_dict(torch.load(model_path, weights_only=True))
         self.model.eval()
