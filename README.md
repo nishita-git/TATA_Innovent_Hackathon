@@ -59,7 +59,17 @@ Streamlit Fleet Dashboard
 An RMSE of 12.06 on a 0 to 125 cycle target range represents 9.6% relative error. In operational terms, the model predicts engine failure within a ±12 flight cycle window, which is well within the 15 to 20 cycle buffer that MRO teams already build into maintenance schedules.
 
 ---
+## Training Results
 
+![Training Loss and Predicted vs Actual RUL](docs/model_results.png)
+
+## Fleet Visualization
+
+![Fleet RUL Overview](docs/digital_twin_fleet.png)
+
+## Individual Engine Degradation Tracking
+
+![Engine RUL Tracking](docs/engine_rul_tracking.png)
 ## Dataset
 
 **NASA CMAPSS (Commercial Modular Aero-Propulsion System Simulation)**
