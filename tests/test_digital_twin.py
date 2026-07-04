@@ -1,5 +1,9 @@
 import sys
-sys.path.append('../src')
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT_DIR / 'src'))
+MODELS_DIR = ROOT_DIR / 'models'
 
 import torch
 import numpy as np
@@ -10,7 +14,7 @@ from model import LSTMModel
 
 def test_engine_twin_initialization():
     model = LSTMModel(input_size=14)
-    with open('../models/scaler.pkl', 'rb') as f:
+    with open(MODELS_DIR / 'scaler.pkl', 'rb') as f:
         scaler = pickle.load(f)
 
     twin = EngineDigitalTwin(
@@ -29,7 +33,7 @@ def test_engine_twin_initialization():
 
 def test_engine_twin_ingest():
     model = LSTMModel(input_size=14)
-    with open('../models/scaler.pkl', 'rb') as f:
+    with open(MODELS_DIR / 'scaler.pkl', 'rb') as f:
         scaler = pickle.load(f)
 
     twin = EngineDigitalTwin(
@@ -51,9 +55,9 @@ def test_engine_twin_ingest():
 
 def test_fleet_twin_initialization():
     fleet = FleetDigitalTwin(
-        model_path='../models/lstm_rul.pt',
-        scaler_path='../models/scaler.pkl',
-        config_path='../models/model_config.json'
+        model_path=str(MODELS_DIR / 'lstm_rul.pt'),
+        scaler_path=str(MODELS_DIR / 'scaler.pkl'),
+        config_path=str(MODELS_DIR / 'model_config.json')
     )
 
     assert fleet.model is not None
@@ -65,9 +69,9 @@ def test_fleet_twin_initialization():
 
 def test_fleet_add_engine():
     fleet = FleetDigitalTwin(
-        model_path='../models/lstm_rul.pt',
-        scaler_path='../models/scaler.pkl',
-        config_path='../models/model_config.json'
+        model_path=str(MODELS_DIR / 'lstm_rul.pt'),
+        scaler_path=str(MODELS_DIR / 'scaler.pkl'),
+        config_path=str(MODELS_DIR / 'model_config.json')
     )
 
     fleet.add_engine(1)
@@ -80,7 +84,7 @@ def test_fleet_add_engine():
 
 def test_alert_system():
     model = LSTMModel(input_size=14)
-    with open('../models/scaler.pkl', 'rb') as f:
+    with open(MODELS_DIR / 'scaler.pkl', 'rb') as f:
         scaler = pickle.load(f)
 
     twin = EngineDigitalTwin(
@@ -101,9 +105,9 @@ def test_alert_system():
 
 def test_fleet_summary():
     fleet = FleetDigitalTwin(
-        model_path='../models/lstm_rul.pt',
-        scaler_path='../models/scaler.pkl',
-        config_path='../models/model_config.json'
+        model_path=str(MODELS_DIR / 'lstm_rul.pt'),
+        scaler_path=str(MODELS_DIR / 'scaler.pkl'),
+        config_path=str(MODELS_DIR / 'model_config.json')
     )
 
     fleet.add_engine(1)
